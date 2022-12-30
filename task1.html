@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            text-align: justify;
+            font-family: sans-serif;
+            font-size: 14px;
+            line-height: 24px;
+            color: #333;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+    </style>
+    <script>
+        let arr = [];
+        function submit1() {
+
+            let pi = document.getElementById("id").value;
+            let pn = document.getElementById("productName").value;
+            let pp = document.getElementById("productPrice").value;
+            let pq = document.getElementById("productQuantity").value;
+            let obj = {
+                id: pi,
+                Name: pn,
+                Price: pp,
+                PriceQuantity: pq,
+            }
+            arr.push(obj);
+            console.log(arr);
+        }
+        function submit2() {
+            let dpi = document.getElementById("did").value;
+            //     for (let k in arr){
+            //         if (arr[k].id == dpi ) {
+            //             arr.splice(k,1)
+            //             console.log(arr); //Second stretegy to try
+            //     }
+            // }
+            arr.map((d, i) => {
+                if (d.id == dpi) {
+                    arr.splice(i, 1);
+                }
+            })
+            console.log(arr);
+        }
+        function submit3() {
+            let upi = document.getElementById("uid").value;
+            let upn = document.getElementById("uproductName").value;
+            let upp = document.getElementById("uproductPrice").value;
+            let upq = document.getElementById("uproductQuantity").value;
+            arr.map((d, i) => {
+                if (d.id == upi) {
+                    // arr.splice(i, 1);
+                    let obj = {
+                        id: upi,
+                        Name: upn,
+                        Price: upp,
+                        PriceQuantity: upq,
+                    }
+                    // arr.splice(i, 0, obj);
+                    arr[i] = obj;
+                    console.log(arr);
+            }
+
+
+            })
+
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <form action="" onsubmit="submit1(); event.preventDefault()">
+        Product Id <input type="number" id="id"><br>
+        Product Name<input type="name" id="productName"><br>
+        Product Price <input type="number" id="productPrice"><br>
+        Product Quantity <input type="number" id="productQuantity"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+
+    <form action="" onsubmit="submit2(); event.preventDefault()">
+        Enter Product Id To Delete<input type="number" id="did"><br>
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+    <br>
+
+    <form action="" onsubmit="submit3(); event.preventDefault()">
+        Product Id <input type="number" id="uid"><br>
+        Product Name<input type="name" id="uproductName"><br>
+        Product Price <input type="number" id="uproductPrice"><br>
+        Product Quantity <input type="number" id="uproductQuantity"><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+
+</html>
