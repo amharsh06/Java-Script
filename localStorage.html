@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            text-align: justify;
+            font-family: sans-serif;
+            font-size: 14px;
+            line-height: 24px;
+            color: #333;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+    </style>
+    <script>
+
+        window.onload = dataLoad;
+
+        function dataLoad() {
+            let localdata = JSON.parse(localStorage.getItem("products"));
+            let row = "";
+            row += "<table border= 2px solid black>";
+
+            localdata.map((d, i) => {
+                row += "<tr>";
+                row += "<td>" + d.id;
+                row += "</td>";
+                row += "<td>" + d.Name;
+                row += "</td>";
+                row += "<td>" + d.Price;
+                row += "</td>";
+                row += "<td>" + d.PriceQuantity;
+                row += "</td>";
+                row += "</tr>";
+                
+            })
+            row += "<table>";
+                document.getElementById("demo").innerHTML = row;
+        }
+        function submit1() {
+
+            let pi = document.getElementById("id").value;
+            let pn = document.getElementById("productName").value;
+            let pp = document.getElementById("productPrice").value;
+            let pq = document.getElementById("productQuantity").value;
+            let obj = {
+                id: pi,
+                Name: pn,
+                Price: pp,
+                PriceQuantity: pq
+            }
+
+            let localdata = JSON.parse(localStorage.getItem("products"));
+            if (localdata !== null) {
+                localdata.push(obj);
+                localStorage.setItem("products", JSON.stringify(localdata));
+            } else {
+                localStorage.setItem("products", JSON.stringify([obj]));
+            }
+
+        }
+        function submit2() {
+            let localdata = JSON.parse(localStorage.getItem("products"));
+            let dpi = document.getElementById("did").value;
+            //     for (let k in arr){
+            //         if (arr[k].id == dpi ) {
+            //             arr.splice(k,1)
+            //             console.log(arr); //Second stretegy to try
+            //     }
+            // }
+            localdata.map((d, i) => {
+                if (d.id == dpi) {
+                    localdata.splice(i, 1);
+                }
+            })
+            localStorage.setItem("products", JSON.stringify(localdata))
+        }
+        function submit3() {
+            let localdata = JSON.parse(localStorage.getItem("products"));
+            let upi = document.getElementById("uid").value;
+            let upn = document.getElementById("uproductName").value;
+            let upp = document.getElementById("uproductPrice").value;
+            let upq = document.getElementById("uproductQuantity").value;
+            localdata.map((d, i) => {
+                if (d.id == upi) {
+                    // arr.splice(i, 1);
+                    let obj = {
+                        id: upi,
+                        Name: upn,
+                        Price: upp,
+                        PriceQuantity: upq,
+                    }
+                    // arr.splice(i, 0, obj);
+                    localdata[i] = obj;
+
+                }
+
+
+            })
+            localStorage.setItem("products", JSON.stringify(localdata));
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <form action="" onsubmit="submit1()">
+        Product Id <input type="number" id="id"><br>
+        Product Name<input type="name" id="productName"><br>
+        Product Price <input type="number" id="productPrice"><br>
+        Product Quantity <input type="number" id="productQuantity"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+
+    <form action="" onsubmit="submit2()">
+        Enter Product Id To Delete<input type="number" id="did"><br>
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+    <br>
+
+    <form action="" onsubmit="submit3()">
+        Product Id <input type="number" id="uid"><br>
+        Product Name<input type="name" id="uproductName"><br>
+        Product Price <input type="number" id="uproductPrice"><br>
+        Product Quantity <input type="number" id="uproductQuantity"><br>
+        <button type="submit">Update</button>
+    </form>
+    <p id="demo"></p>
+</body>
+
+</html>
