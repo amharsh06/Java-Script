@@ -18,18 +18,23 @@
             padding: 0;
             font-weight: 400;
         }
+        #sec{
+            display: none;
+        }
     </style>
 
 </head>
 
 <body>
     <form action="" onsubmit="submit1()">
-        Product Id <input type="number" id="id"><br>
+        Product Id <input type="number" id="id" ><br>
         Product Name<input type="name" id="productName"><br>
         Product Price <input type="number" id="productPrice"><br>
         Product Quantity <input type="number" id="productQuantity"><br>
         Image <input type="text" id="img1"><br>
-        <button type="submit">Submit</button>
+        <button type="submit" id="first">Submit</button>
+        <button type="button" onclick="update()" id="sec">Update</button>
+
     </form>
     <br>
     <br>
@@ -37,7 +42,7 @@
     <p id="demo"></p>
 </body>
 <script>
-
+    let updat = false;
     window.onload = dataLoad;
 
     function dataLoad() {
@@ -116,7 +121,33 @@
                 let img = document.getElementById("img1").value = d.Image;
             }
         })
+        document.getElementById("id").setAttribute('disabled','');
+        document.getElementById("first").style.display='none';
+        document.getElementById("sec").style.display='block';
+
     }
+    function update() {
+        let upi = document.getElementById("id").value;
+        let upn = document.getElementById("productName").value;
+        let upp = document.getElementById("productPrice").value;
+        let upq = document.getElementById("productQuantity").value;
+        let img = document.getElementById("img1").value;
+        let localData = JSON.parse(localStorage.getItem("products"));
+        localData.map((d, i) => {
+            if (d.id == upi) {
+                d.Name = upn;
+                d.Price = upp;
+                d.PriceQuantity = upq;
+                d.Image = img;
+            }
+
+        })
+        localStorage.setItem("products",JSON.stringify(localData))
+
+        dataLoad();
+
+    }
+
 </script>
 
 </html>
